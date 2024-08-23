@@ -94,7 +94,9 @@ def joinNewAccount(
                 base_df,
                 pd.DataFrame(
                     {
-                        "名前 [displayName] 必須": [f"2024_{grade}{room}0{number}"],
+                        "名前 [displayName] 必須": [
+                            f"2024_{grade}{room}0{number}_parent"
+                        ],
                         "ユーザー名 [userPrincipalName] 必須": [
                             f"2024P{grade}{room}0{number}@seiryofes.com"
                         ],
@@ -127,7 +129,9 @@ def joinNewAccount(
                 base_df,
                 pd.DataFrame(
                     {
-                        "名前 [displayName] 必須": [f"2024_{grade}{room}{number}"],
+                        "名前 [displayName] 必須": [
+                            f"2024_{grade}{room}{number}_parent"
+                        ],
                         "ユーザー名 [userPrincipalName] 必須": [
                             f"2024P{grade}{room}{number}@seiryofes.com"
                         ],
