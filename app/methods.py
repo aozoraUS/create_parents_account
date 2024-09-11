@@ -16,7 +16,7 @@ def generateRandomPassword(n: int) -> str:
     random_list = [
         random.choice(string.ascii_letters + string.digits) for i in range(n)
     ]
-    return "".join(random_list)
+    return "2024" + "".join(random_list)
 
 
 def generateCSV(df: pd.DataFrame, filepath: str) -> None:
@@ -70,6 +70,52 @@ def accountAddGroupBaseDataFrame() -> pd.DataFrame:
             "メンバー オブジェクト ID またはユーザー プリンシパル名 [memberObjectIdOrUpn] 必須": []
         }
     )
+
+
+def joinNewGuestAccount(
+    base_df: pd.DataFrame, password: str, number: int
+) -> pd.DataFrame:
+    """アカウント作成データフレームに新しいゲストアカウントを追加する
+
+    Args:
+        base_df (pd.DataFrame): 追加先データフレーム
+        password (str): パスワード
+        number (int): アカウント名につける連番
+
+    Returns:
+        pd.DataFrame: 追加後のデータフレーム
+    """
+
+    data = pd.concat(
+        [
+            base_df,
+            pd.DataFrame(
+                {
+                    "名前 [displayName] 必須": [f"2024_{number}_guest"],
+                    "ユーザー名 [userPrincipalName] 必須": [
+                        f"2024G{number}@seiryofes.com"
+                    ],
+                    "初期パスワード [passwordProfile] 必須": [password],
+                    "サインインのブロック (はい/いいえ) [accountEnabled] 必須": ["No"],
+                    "名 [givenName]": [None],
+                    "姓 [surname]": [None],
+                    "役職 [jobTitle]": [None],
+                    "部署 [department]": [None],
+                    "利用場所 [usageLocation]": [None],
+                    "番地 [streetAddress]": [None],
+                    "都道府県 [state]": [None],
+                    "国/リージョン [country]": [None],
+                    "Office [physicalDeliveryOfficeName]": [None],
+                    "市区町村 [city]": [None],
+                    "郵便番号 [postalCode]": [None],
+                    "会社電話 [telephoneNumber]": [None],
+                    "携帯電話 [mobile]": [None],
+                }
+            ),
+        ]
+    )
+
+    return data
 
 
 def joinNewAccount(
@@ -223,6 +269,24 @@ def createParentsAccount() -> pd.DataFrame:
         for n in range(1, 9):
             for i in range(1, 45):
                 data = joinNewAccount(data, generateRandomPassword(10), m, n, i)
+    return data
+
+
+def createGuestAccount(number: int) -> pd.DataFrame:
+    """ゲストアカウントを一括作成したデータフレームを作る
+
+    Args:
+        number (int): 何人分作るのか
+
+    Returns:
+        pd.DataFrame: ゲスト情報が乗ったデータフレーム
+    """
+
+    data = accountCreateBaseDataFrame()
+
+    for i in range(1, number):
+        data = joinNewGuestAccount(data, generateRandomPassword(10), i)
+
     return data
 
 

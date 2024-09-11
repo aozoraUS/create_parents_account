@@ -1,8 +1,10 @@
 import methods
 
 if __name__ == "__main__":
+    """
     df = methods.createParentsAccount()
     methods.generateCSV(df, "../csv/created/parents_account.csv")
+    """
 
     """
     for g in range(1, 4):
@@ -12,3 +14,6 @@ if __name__ == "__main__":
                 df, f"../csv/created/{g}{c}r_group_import_parents_account.csv"
             )
     """
+
+    df = methods.createGuestAccount(6001)
+    methods.generateCSV(df, "../csv/created/guest_account.csv")
