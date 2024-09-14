@@ -15,5 +15,5 @@ if __name__ == "__main__":
             )
     """
 
-    df = methods.createGuestAccount(6001)
-    methods.generateCSV(df, "../csv/created/guest_account.csv")
+    df = methods.createGuestAccount(3000, 6001)
+    methods.generateCSV(df, "../csv/created/guest_account_1.csv")

@@ -272,11 +272,12 @@ def createParentsAccount() -> pd.DataFrame:
     return data
 
 
-def createGuestAccount(number: int) -> pd.DataFrame:
+def createGuestAccount(number: int, starts_at: int) -> pd.DataFrame:
     """ゲストアカウントを一括作成したデータフレームを作る
 
     Args:
         number (int): 何人分作るのか
+        starts_at (int): 開始アカウント連番
 
     Returns:
         pd.DataFrame: ゲスト情報が乗ったデータフレーム
@@ -284,8 +285,8 @@ def createGuestAccount(number: int) -> pd.DataFrame:
 
     data = accountCreateBaseDataFrame()
 
-    for i in range(1, number):
-        data = joinNewGuestAccount(data, generateRandomPassword(10), i)
+    for i in range(starts_at, number + starts_at):
+        data = joinNewGuestAccount(data, generateRandomPassword(15), i)
 
     return data
 
